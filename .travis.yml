@@ -12,4 +12,4 @@ script:
 - npm run ci
 after_success:
 - chmod 600 ~/.ssh/id_rsa
-- ssh travis@120.27.247.30 -o StrictHostKeyChecking=no 'cd ~/scoyzhao-service && git pull'
+- ssh travis@120.27.247.30 -o StrictHostKeyChecking=no 'cd ~/scoyzhao-service && git pull && sudo npm install'
