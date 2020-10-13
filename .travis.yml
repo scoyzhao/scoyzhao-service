@@ -1,15 +1,12 @@
+
 language: node_js
 node_js:
-- v12.18.3
-branches:
-  only:
-  - master
+  - '10'
 before_install:
-- openssl aes-256-cbc -K $encrypted_b6019c2ba558_key -iv $encrypted_b6019c2ba558_iv
-  -in id_rsa.enc -out ~/.ssh/id_rsa -d
-install: npm install
+  - npm i npminstall -g
+install:
+  - npminstall
 script:
-- npm run ci
-after_success:
-- chmod 600 ~/.ssh/id_rsa
-- ssh travis@120.27.247.30 -o StrictHostKeyChecking=no 'cd ~/scoyzhao-service && git pull && sudo npm install'
+  - npm run ci
+after_script:
+  - npminstall codecov && codecov
