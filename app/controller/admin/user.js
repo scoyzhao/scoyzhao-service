@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-14 01:05:26
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-14 01:07:43
+ * @Last Modified time: 2020-10-14 01:54:43
  */
 'use strict';
 
@@ -35,7 +35,7 @@ class AdminController extends Controller {
       } else {
         ctx.body = {
           code: 1,
-          msg: '登录失败',
+          msg: '账号/密码错误',
         };
       }
     } catch (error) {
