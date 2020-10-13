@@ -1,30 +1,51 @@
+/*
+ * @Author: scoyzhao
+ * @Date: 2020-10-14 01:05:26
+ * @Last Modified by: scoyzhao
+ * @Last Modified time: 2020-10-14 01:07:43
+ */
 'use strict';
 
 const Controller = require('egg').Controller;
 
 class AdminController extends Controller {
   async login() {
-    const { ctx, app } = this
-    const { userName, password } = ctx.request.body
-    const sql = `SELECT count(*) FROM user WHERE user_name = '${userName}' AND password = '${password}'`
-    console.log("AdminController -> login -> sql", sql)
+    const { ctx, app } = this;
+    const { userName, password } = ctx.request.body;
+    // const sql = `SELECT count(*) FROM user WHERE user_name = '${userName}' AND password = '${password}'`;
+    // console.log('AdminController -> login -> sql', sql);
 
     try {
-      const res = await app.mysql.query(sql)
+      const user = await app.mysql.get('user', {
+        user_name: userName,
+        password,
+      });
 
-      if (res.length > 0) {
-        const openId = new Date().getTime()
+      if (user) {
+        const openId = new Date().getTime();
 
-        ctx.session.openId = { 'openId': openId }
-        ctx.body = { 'data': '登录成功', 'openId': openId }
+        ctx.session.openId = { openId };
+        ctx.body = {
+          code: 0,
+          data: {
+            openId,
+          },
+          msg: '登录成功',
+        };
       } else {
-        this.ctx.body = { data: '登录失败' }
+        ctx.body = {
+          code: 1,
+          msg: '登录失败',
+        };
       }
     } catch (error) {
-      console.log("AdminController -> login -> error", error)
-      this.ctx.body = { data: '系统错误' }
+      // TODO 日志
+      ctx.body = {
+        code: 1,
+        msg: 'server error',
+      };
     }
   }
 }
 
-module.exports = AdminController
+module.exports = AdminController;
