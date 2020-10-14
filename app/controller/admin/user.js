@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-14 01:05:26
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-14 01:54:43
+ * @Last Modified time: 2020-10-14 14:29:46
  */
 'use strict';
 
@@ -39,6 +39,7 @@ class AdminController extends Controller {
         };
       }
     } catch (error) {
+      console.log('AdminController -> login -> error', error);
       // TODO 日志
       ctx.body = {
         code: 1,
