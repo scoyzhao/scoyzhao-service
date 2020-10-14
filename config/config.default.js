@@ -46,11 +46,20 @@ module.exports = appInfo => {
   config.security = {
     // TODO optimize csrf
     csrf: { enable: false },
-    domainWhiteList: [ '120.27.247.30:3000' ],
+    domainWhiteList: [ '*' ],
   };
 
   config.cors = {
-    origin: '120.27.247.30:3000', // 只允许这个域进行访问接口
+    origin: ctx => {
+      // NOTE 支持多个域名的跨域，原本框架不支持
+      const whiteList = [ 'http://120.27.247.30:3000', 'http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000', 'http://127.0.0.1:3001' ];
+      const url = ctx.header.referer.substr(0, ctx.header.referer.length - 1);
+      if (whiteList.includes(url)) {
+        return url;
+      }
+
+      return 'localhost:3001';
+    },
     credentials: true, // 开启认证
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
   };
