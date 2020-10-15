@@ -2,13 +2,13 @@
  * @Author: scoyzhao
  * @Date: 2020-10-14 01:05:26
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-14 14:29:46
+ * @Last Modified time: 2020-10-15 14:09:55
  */
 'use strict';
 
 const Controller = require('egg').Controller;
 
-class AdminController extends Controller {
+class UserContorller extends Controller {
   async login() {
     const { ctx, app } = this;
     const { userName, password } = ctx.request.body;
@@ -35,18 +35,21 @@ class AdminController extends Controller {
       } else {
         ctx.body = {
           code: 1,
+          data: {},
           msg: '账号/密码错误',
         };
       }
     } catch (error) {
-      console.log('AdminController -> login -> error', error);
       // TODO 日志
       ctx.body = {
         code: 1,
+        data: {
+          error,
+        },
         msg: 'server error',
       };
     }
   }
 }
 
-module.exports = AdminController;
+module.exports = UserContorller;
