@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-04 00:29:15
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-15 15:15:29
+ * @Last Modified time: 2020-10-16 01:21:23
  */
 
 'use strict';
@@ -13,6 +13,7 @@ module.exports = app => {
 
   // * 用户相关
   router.post('/user/login', controller.admin.user.login);
+  router.get('/user/logout', controller.admin.user.logout);
 
   // * 类型相关
   router.post('/type/addType', auth, controller.admin.type.addType);

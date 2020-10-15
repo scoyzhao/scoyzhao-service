@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-14 01:05:26
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-15 14:09:55
+ * @Last Modified time: 2020-10-16 01:19:21
  */
 'use strict';
 
@@ -47,6 +47,24 @@ class UserContorller extends Controller {
           error,
         },
         msg: 'server error',
+      };
+    }
+  }
+
+  async logout() {
+    const { ctx } = this;
+    try {
+      ctx.session.openId = null;
+      ctx.body = {
+        code: 0,
+        data: {},
+        msg: '退出成功',
+      };
+    } catch (error) {
+      ctx.body = {
+        code: 1,
+        data: {},
+        msg: '退出失败',
       };
     }
   }
