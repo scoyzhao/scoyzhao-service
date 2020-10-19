@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-14 01:05:26
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-16 01:19:21
+ * @Last Modified time: 2020-10-19 17:53:59
  */
 'use strict';
 
@@ -27,15 +27,12 @@ class UserContorller extends Controller {
         ctx.session.openId = { openId };
         ctx.body = {
           code: 0,
-          data: {
-            openId,
-          },
+          data: openId,
           msg: '登录成功',
         };
       } else {
         ctx.body = {
           code: 1,
-          data: {},
           msg: '账号/密码错误',
         };
       }
@@ -43,9 +40,7 @@ class UserContorller extends Controller {
       // TODO 日志
       ctx.body = {
         code: 1,
-        data: {
-          error,
-        },
+        data: error,
         msg: 'server error',
       };
     }
@@ -63,7 +58,6 @@ class UserContorller extends Controller {
     } catch (error) {
       ctx.body = {
         code: 1,
-        data: {},
         msg: '退出失败',
       };
     }

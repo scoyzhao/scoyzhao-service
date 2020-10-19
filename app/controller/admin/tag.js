@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-15 15:11:43
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-15 15:13:38
+ * @Last Modified time: 2020-10-19 17:53:22
  */
 
 
@@ -18,7 +18,6 @@ class TagController extends Controller {
     if (!name) {
       ctx.body = {
         code: 1,
-        data: {},
         msg: '缺少name字段',
       };
 
@@ -42,7 +41,6 @@ class TagController extends Controller {
       if (tag) {
         ctx.body = {
           code: 1,
-          data: {},
           msg: `标签${name}已存在`,
         };
       } else {
@@ -57,7 +55,6 @@ class TagController extends Controller {
         } else {
           ctx.body = {
             code: 1,
-            data: {},
             msg: `添加标签${name}失败`,
           };
         }
@@ -65,9 +62,7 @@ class TagController extends Controller {
     } catch (error) {
       ctx.body = {
         code: 1,
-        data: {
-          error,
-        },
+        data: error,
         msg: 'server error',
       };
     }
@@ -80,7 +75,6 @@ class TagController extends Controller {
     if (!id) {
       ctx.body = {
         code: 1,
-        data: {},
         msg: '缺少id字段',
       };
 
@@ -95,7 +89,6 @@ class TagController extends Controller {
       if (!tag) {
         ctx.body = {
           code: 1,
-          data: {},
           msg: '标签不存在',
         };
       } else {
@@ -112,7 +105,6 @@ class TagController extends Controller {
         } else {
           ctx.body = {
             code: 1,
-            data: {},
             msg: '删除失败',
           };
         }
@@ -120,9 +112,7 @@ class TagController extends Controller {
     } catch (error) {
       ctx.body = {
         code: 1,
-        data: {
-          error,
-        },
+        data: error,
         msg: 'server error',
       };
     }
@@ -135,7 +125,6 @@ class TagController extends Controller {
     if (!id || description === undefined) {
       ctx.body = {
         code: 1,
-        data: {},
         msg: '缺少id或description',
       };
 
@@ -150,7 +139,6 @@ class TagController extends Controller {
       if (!tag) {
         ctx.body = {
           code: 1,
-          data: {},
           msg: '标签不存在',
         };
       } else {
@@ -168,7 +156,6 @@ class TagController extends Controller {
         } else {
           ctx.body = {
             code: 1,
-            data: {},
             msg: '更新失败',
           };
         }
@@ -176,9 +163,7 @@ class TagController extends Controller {
     } catch (error) {
       ctx.body = {
         code: 1,
-        data: {
-          error,
-        },
+        data: error,
         msg: 'server error',
       };
     }
@@ -191,17 +176,13 @@ class TagController extends Controller {
       const result = await app.mysql.select('tag');
       ctx.body = {
         code: 0,
-        data: {
-          result,
-        },
+        data: result,
         msg: '获取标签列表成功',
       };
     } catch (error) {
       ctx.body = {
         code: 1,
-        data: {
-          error,
-        },
+        data: error,
         msg: 'server error',
       };
     }

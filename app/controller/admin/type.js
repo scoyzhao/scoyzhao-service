@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-15 11:58:10
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-15 15:10:06
+ * @Last Modified time: 2020-10-19 17:52:16
  */
 
 'use strict';
@@ -17,7 +17,6 @@ class TypeController extends Controller {
     if (!name) {
       ctx.body = {
         code: 1,
-        data: {},
         msg: '缺少name字段',
       };
 
@@ -41,7 +40,6 @@ class TypeController extends Controller {
       if (type) {
         ctx.body = {
           code: 1,
-          data: {},
           msg: `类型${name}已存在`,
         };
       } else {
@@ -56,7 +54,6 @@ class TypeController extends Controller {
         } else {
           ctx.body = {
             code: 1,
-            data: {},
             msg: `添加类型${name}失败`,
           };
         }
@@ -64,9 +61,7 @@ class TypeController extends Controller {
     } catch (error) {
       ctx.body = {
         code: 1,
-        data: {
-          error,
-        },
+        data: error,
         msg: 'server error',
       };
     }
@@ -79,7 +74,6 @@ class TypeController extends Controller {
     if (!id) {
       ctx.body = {
         code: 1,
-        data: {},
         msg: '缺少id字段',
       };
 
@@ -94,7 +88,6 @@ class TypeController extends Controller {
       if (!type) {
         ctx.body = {
           code: 1,
-          data: {},
           msg: '类型不存在',
         };
       } else {
@@ -111,7 +104,6 @@ class TypeController extends Controller {
         } else {
           ctx.body = {
             code: 1,
-            data: {},
             msg: '删除失败',
           };
         }
@@ -119,9 +111,7 @@ class TypeController extends Controller {
     } catch (error) {
       ctx.body = {
         code: 1,
-        data: {
-          error,
-        },
+        data: error,
         msg: 'server error',
       };
     }
@@ -134,7 +124,6 @@ class TypeController extends Controller {
     if (!id || description === undefined) {
       ctx.body = {
         code: 1,
-        data: {},
         msg: '缺少id或description',
       };
 
@@ -149,7 +138,6 @@ class TypeController extends Controller {
       if (!type) {
         ctx.body = {
           code: 1,
-          data: {},
           msg: '类型不存在',
         };
       } else {
@@ -167,7 +155,6 @@ class TypeController extends Controller {
         } else {
           ctx.body = {
             code: 1,
-            data: {},
             msg: '更新失败',
           };
         }
@@ -175,9 +162,7 @@ class TypeController extends Controller {
     } catch (error) {
       ctx.body = {
         code: 1,
-        data: {
-          error,
-        },
+        data: error,
         msg: 'server error',
       };
     }
