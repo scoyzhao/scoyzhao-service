@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-15 11:58:10
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-19 17:52:16
+ * @Last Modified time: 2020-10-19 17:57:06
  */
 
 'use strict';
@@ -175,9 +175,7 @@ class TypeController extends Controller {
       const result = await app.mysql.select('type');
       ctx.body = {
         code: 0,
-        data: {
-          result,
-        },
+        data: result,
         msg: '获取类型列表成功',
       };
     } catch (error) {
