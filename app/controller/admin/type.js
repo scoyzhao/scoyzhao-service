@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-15 11:58:10
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-19 19:52:55
+ * @Last Modified time: 2020-10-19 21:16:56
  */
 
 'use strict';
@@ -179,11 +179,28 @@ class TypeController extends Controller {
 
     try {
       const result = await app.mysql.query(mysql);
-      ctx.body = {
-        code: 0,
-        data: result,
-        msg: '获取类型列表成功',
-      };
+      // * 根据id查找
+      if (id) {
+        if (!result.length) {
+          ctx.body = {
+            code: 1,
+            data: {},
+            msg: '类型不存在',
+          };
+        } else {
+          ctx.body = {
+            code: 0,
+            data: result[0],
+            msg: '获取类型成功',
+          };
+        }
+      } else {
+        ctx.body = {
+          code: 0,
+          data: result,
+          msg: '获取类型列表成功',
+        };
+      }
     } catch (error) {
       ctx.body = {
         code: 1,

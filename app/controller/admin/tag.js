@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-15 15:11:43
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-19 19:52:24
+ * @Last Modified time: 2020-10-19 21:17:55
  */
 
 
@@ -180,11 +180,28 @@ class TagController extends Controller {
 
     try {
       const result = await app.mysql.query(mysql);
-      ctx.body = {
-        code: 0,
-        data: result,
-        msg: '获取标签列表成功',
-      };
+      // * 根据id查找
+      if (id) {
+        if (!result.length) {
+          ctx.body = {
+            code: 1,
+            data: {},
+            msg: '标签不存在',
+          };
+        } else {
+          ctx.body = {
+            code: 0,
+            data: result[0],
+            msg: '获取标签成功',
+          };
+        }
+      } else {
+        ctx.body = {
+          code: 0,
+          data: result,
+          msg: '获取标签列表成功',
+        };
+      }
     } catch (error) {
       ctx.body = {
         code: 1,
