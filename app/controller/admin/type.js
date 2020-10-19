@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-15 11:58:10
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-19 17:57:06
+ * @Last Modified time: 2020-10-19 19:52:55
  */
 
 'use strict';
@@ -170,9 +170,15 @@ class TypeController extends Controller {
 
   async getTypeList() {
     const { ctx, app } = this;
+    const { id } = ctx.request.body;
+
+    let mysql = 'SELECT * FROM type';
+    if (id) {
+      mysql += ` WHERE id = ${id}`;
+    }
 
     try {
-      const result = await app.mysql.select('type');
+      const result = await app.mysql.query(mysql);
       ctx.body = {
         code: 0,
         data: result,

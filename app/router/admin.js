@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-04 00:29:15
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-16 01:21:23
+ * @Last Modified time: 2020-10-19 19:43:24
  */
 
 'use strict';
@@ -19,7 +19,7 @@ module.exports = app => {
   router.post('/type/addType', auth, controller.admin.type.addType);
   router.post('/type/deleteType', auth, controller.admin.type.deleteType);
   router.post('/type/updateType', auth, controller.admin.type.updateType);
-  router.get('/type/getTypeList', auth, controller.admin.type.getTypeList);
+  router.post('/type/getTypeList', auth, controller.admin.type.getTypeList);
 
   // * 标签相关
   router.post('/tag/addTag', auth, controller.admin.tag.addTag);

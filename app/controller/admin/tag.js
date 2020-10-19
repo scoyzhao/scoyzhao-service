@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-15 15:11:43
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-19 17:57:15
+ * @Last Modified time: 2020-10-19 19:52:24
  */
 
 
@@ -171,9 +171,15 @@ class TagController extends Controller {
 
   async getTagList() {
     const { ctx, app } = this;
+    const { id } = ctx.request.body;
+
+    let mysql = 'SELECT * FROM tag';
+    if (id) {
+      mysql += ` WHERE id = ${id}`;
+    }
 
     try {
-      const result = await app.mysql.select('tag');
+      const result = await app.mysql.query(mysql);
       ctx.body = {
         code: 0,
         data: result,
