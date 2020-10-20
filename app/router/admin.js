@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-04 00:29:15
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-19 19:43:24
+ * @Last Modified time: 2020-10-20 20:59:49
  */
 
 'use strict';
@@ -25,5 +25,5 @@ module.exports = app => {
   router.post('/tag/addTag', auth, controller.admin.tag.addTag);
   router.post('/tag/deleteTag', auth, controller.admin.tag.deleteTag);
   router.post('/tag/updateTag', auth, controller.admin.tag.updateTag);
-  router.get('/tag/getTagList', auth, controller.admin.tag.getTagList);
+  router.post('/tag/getTagList', auth, controller.admin.tag.getTagList);
 };
