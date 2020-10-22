@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-22 16:46:17
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-22 17:29:50
+ * @Last Modified time: 2020-10-23 01:10:21
  */
 
 'use strict';
@@ -128,9 +128,8 @@ class BlogController extends Controller {
     }
 
     try {
-      const blog = await app.mysql.get('blog', {
-        id,
-      });
+      const query = `SELECT title, abstract, type, tags, isTop, isShow FROM blog WHERE id = ${id}`;
+      const [ blog ] = await app.mysql.query(query);
 
       if (!blog) {
         ctx.body = {
@@ -143,13 +142,10 @@ class BlogController extends Controller {
         }
 
         const data = Object.assign({}, blog, payload);
-
         const result = await app.mysql.update('blog', {
           id,
           ...data,
         });
-        console.log('BlogController -> updateBlog -> payload', payload);
-        console.log('BlogController -> updateBlog -> Object.assign({}, payload, blog)', Object.assign({}, payload, blog));
 
         if (result) {
           ctx.body = {
