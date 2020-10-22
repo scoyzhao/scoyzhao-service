@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-04 00:29:15
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-20 20:59:49
+ * @Last Modified time: 2020-10-22 17:19:36
  */
 
 'use strict';
@@ -26,4 +26,9 @@ module.exports = app => {
   router.post('/tag/deleteTag', auth, controller.admin.tag.deleteTag);
   router.post('/tag/updateTag', auth, controller.admin.tag.updateTag);
   router.post('/tag/getTagList', auth, controller.admin.tag.getTagList);
+
+  // * 博客管理
+  router.post('/blog/addBlog', auth, controller.admin.blog.addBlog);
+  router.post('/blog/deleteBlog', auth, controller.admin.blog.deleteBlog);
+  router.post('/blog/updateBlog', auth, controller.admin.blog.updateBlog);
 };
