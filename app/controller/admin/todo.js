@@ -1,52 +1,35 @@
 /*
  * @Author: scoyzhao
- * @Date: 2020-10-22 16:46:17
+ * @Date: 2020-10-23 10:21:11
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-23 10:33:24
+ * @Last Modified time: 2020-10-23 10:37:06
  */
 
 'use strict';
 
 const Controller = require('egg').Controller;
 
-class BlogController extends Controller {
-  async addBlog() {
+class TodoController extends Controller {
+  async addTodo() {
     const { ctx, app } = this;
-    const { title, abstract, type, tags, content } = ctx.request.body;
+    const { content } = ctx.request.body;
 
-    if (!title) {
+    if (!content) {
       ctx.body = {
         code: 1,
-        msg: '缺少title字段',
+        msg: '缺少content字段',
       };
 
       return false;
     }
-
-    if (!type) {
-      ctx.body = {
-        code: 1,
-        msg: '缺少type字段',
-      };
-
-      return false;
-    }
-
-    const payload = {
-      title,
-      abstract,
-      type,
-      tags: tags ? tags.join(',') : '',
-      content,
-    };
 
     try {
-      const result = await app.mysql.insert('blog', payload);
-      console.log('BlogController -> addBlog -> result', result);
+      const result = await app.mysql.insert('todo', { content });
+
       if (result) {
         ctx.body = {
           code: 0,
-          data: result.insertId,
+          data: {},
           msg: '添加成功',
         };
       } else {
@@ -64,7 +47,7 @@ class BlogController extends Controller {
     }
   }
 
-  async deleteBlog() {
+  async deleteTodo() {
     const { ctx, app } = this;
     const { id } = ctx.request.body;
 
@@ -78,17 +61,17 @@ class BlogController extends Controller {
     }
 
     try {
-      const tag = await app.mysql.get('blog', {
+      const result = await app.mysql.get('todo', {
         id,
       });
 
-      if (!tag) {
+      if (!result) {
         ctx.body = {
           code: 1,
-          msg: '博客不存在',
+          msg: '内容不存在',
         };
       } else {
-        const result = await app.mysql.delete('tag', {
+        const result = await app.mysql.delete('todo', {
           id,
         });
 
@@ -114,37 +97,33 @@ class BlogController extends Controller {
     }
   }
 
-  async updateBlog() {
+  async updateTodo() {
     const { ctx, app } = this;
-    const { id, payload } = ctx.request.body;
+    const { id, isCompleted } = ctx.request.body;
 
-    if (!id || payload === undefined) {
+    if (!id || isCompleted === undefined) {
       ctx.body = {
         code: 1,
-        msg: '缺少id或修改的内容',
+        msg: '缺少id或isCompleted',
       };
 
       return false;
     }
 
     try {
-      const query = `SELECT title, abstract, type, tags, isTop, isShow FROM blog WHERE id = ${id}`;
-      const [ blog ] = await app.mysql.query(query);
+      const type = await app.mysql.get('todo', {
+        id,
+      });
 
-      if (!blog) {
+      if (!type) {
         ctx.body = {
           code: 1,
-          msg: '博客不存在',
+          msg: '内容不存在',
         };
       } else {
-        if (payload.tags) {
-          payload.tags = payload.tags.join(',');
-        }
-
-        const data = Object.assign({}, blog, payload);
-        const result = await app.mysql.update('blog', {
+        const result = await app.mysql.update('todo', {
           id,
-          ...data,
+          isCompleted,
         });
 
         if (result) {
@@ -169,48 +148,29 @@ class BlogController extends Controller {
     }
   }
 
-  // TODO 多条件搜和单个搜
-  async getBlogList() {
+  async getTodoList() {
     const { ctx, app } = this;
-    const { id } = ctx.request.body;
-
-    let mysql = 'SELECT * FROM blog';
-    if (id) {
-      mysql += ` WHERE id = ${id}`;
-    }
 
     try {
-      const result = await app.mysql.query(mysql);
+      const result = await app.mysql.select('todo');
       // * 根据id查找
-      if (id) {
-        if (!result.length) {
-          ctx.body = {
-            code: 1,
-            data: {},
-            msg: '标签不存在',
-          };
-        } else {
-          ctx.body = {
-            code: 0,
-            data: result[0],
-            msg: '获取标签成功',
-          };
-        }
-      } else {
+      if (result) {
         ctx.body = {
           code: 0,
           data: result,
-          msg: '获取标签列表成功',
+          msg: '获取todo列表成功',
         };
       }
     } catch (error) {
       ctx.body = {
         code: 1,
-        data: error,
+        data: {
+          error,
+        },
         msg: 'server error',
       };
     }
   }
 }
 
-module.exports = BlogController;
+module.exports = TodoController;
