@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-23 10:21:11
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-23 10:37:06
+ * @Last Modified time: 2020-10-27 00:39:56
  */
 
 'use strict';
@@ -24,24 +24,42 @@ class TodoController extends Controller {
     }
 
     try {
-      const result = await app.mysql.insert('todo', { content });
-
-      if (result) {
-        ctx.body = {
-          code: 0,
-          data: {},
-          msg: '添加成功',
-        };
-      } else {
+      const result = await app.mysql.select('todo');
+      if (result.length >= 8) {
         ctx.body = {
           code: 1,
-          msg: '添加失败',
+          msg: '还尼玛加？先把这些做完再说！！！',
         };
+      } else {
+        try {
+          const result = await app.mysql.insert('todo', { content });
+
+          if (result) {
+            ctx.body = {
+              code: 0,
+              data: {},
+              msg: '添加成功',
+            };
+          } else {
+            ctx.body = {
+              code: 1,
+              msg: '添加失败',
+            };
+          }
+        } catch (error) {
+          ctx.body = {
+            code: 1,
+            data: error,
+            msg: 'server error',
+          };
+        }
       }
     } catch (error) {
       ctx.body = {
         code: 1,
-        data: error,
+        data: {
+          error,
+        },
         msg: 'server error',
       };
     }
