@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-22 16:46:17
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-23 10:33:24
+ * @Last Modified time: 2020-10-29 01:22:42
  */
 
 'use strict';
@@ -88,7 +88,7 @@ class BlogController extends Controller {
           msg: '博客不存在',
         };
       } else {
-        const result = await app.mysql.delete('tag', {
+        const result = await app.mysql.delete('blog', {
           id,
         });
 
@@ -169,7 +169,6 @@ class BlogController extends Controller {
     }
   }
 
-  // TODO 多条件搜和单个搜
   async getBlogList() {
     const { ctx, app } = this;
     const { id } = ctx.request.body;
@@ -187,20 +186,20 @@ class BlogController extends Controller {
           ctx.body = {
             code: 1,
             data: {},
-            msg: '标签不存在',
+            msg: 'blog不存在',
           };
         } else {
           ctx.body = {
             code: 0,
             data: result[0],
-            msg: '获取标签成功',
+            msg: '获取blog成功',
           };
         }
       } else {
         ctx.body = {
           code: 0,
           data: result,
-          msg: '获取标签列表成功',
+          msg: '获取blog列表成功',
         };
       }
     } catch (error) {

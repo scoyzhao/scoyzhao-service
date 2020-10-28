@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-23 10:21:11
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-27 00:39:56
+ * @Last Modified time: 2020-10-29 00:12:29
  */
 
 'use strict';
@@ -171,7 +171,6 @@ class TodoController extends Controller {
 
     try {
       const result = await app.mysql.select('todo');
-      // * 根据id查找
       if (result) {
         ctx.body = {
           code: 0,

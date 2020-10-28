@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-04 00:29:15
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-23 10:33:06
+ * @Last Modified time: 2020-10-29 01:21:23
  */
 
 'use strict';
@@ -31,6 +31,7 @@ module.exports = app => {
   router.post('/blog/addBlog', auth, controller.admin.blog.addBlog);
   router.post('/blog/deleteBlog', auth, controller.admin.blog.deleteBlog);
   router.post('/blog/updateBlog', auth, controller.admin.blog.updateBlog);
+  router.post('/blog/getBlogList', auth, controller.admin.blog.getBlogList);
 
   // * todo
   router.post('/todo/addTodo', auth, controller.admin.todo.addTodo);
