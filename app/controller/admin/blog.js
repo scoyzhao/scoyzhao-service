@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-22 16:46:17
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-29 01:22:42
+ * @Last Modified time: 2020-10-29 21:42:14
  */
 
 'use strict';
@@ -42,7 +42,6 @@ class BlogController extends Controller {
 
     try {
       const result = await app.mysql.insert('blog', payload);
-      console.log('BlogController -> addBlog -> result', result);
       if (result) {
         ctx.body = {
           code: 0,
@@ -180,6 +179,9 @@ class BlogController extends Controller {
 
     try {
       const result = await app.mysql.query(mysql);
+      for (let i = 0; i < result.length; i++) {
+        result[i].tags = result[i].tags.split(',');
+      }
       // * 根据id查找
       if (id) {
         if (!result.length) {
