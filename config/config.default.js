@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-14 21:31:37
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-15 10:45:22
+ * @Last Modified time: 2020-11-05 21:08:49
  */
 
 'use strict';
@@ -57,13 +57,13 @@ module.exports = appInfo => {
   config.cors = {
     origin: ctx => {
       // NOTE 支持多个域名的跨域，原本框架不支持
-      const whiteList = [ 'http://120.27.247.30:3000', 'http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000', 'http://127.0.0.1:3001' ];
+      const whiteList = [ 'http://localhost:3000', 'http://127.0.0.1:3000' ];
       const url = ctx.header.referer.substr(0, ctx.header.referer.length - 1);
       if (whiteList.includes(url)) {
         return url;
       }
 
-      return 'localhost:3001';
+      return 'http://120.27.247.30:3000';
     },
     credentials: true, // 开启认证
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
