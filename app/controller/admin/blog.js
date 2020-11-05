@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-22 16:46:17
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-29 21:42:14
+ * @Last Modified time: 2020-11-05 20:44:34
  */
 
 'use strict';
@@ -12,7 +12,7 @@ const Controller = require('egg').Controller;
 class BlogController extends Controller {
   async addBlog() {
     const { ctx, app } = this;
-    const { title, abstract, type, tags, content } = ctx.request.body;
+    const { title, abstract, type, tags, content, isShow } = ctx.request.body;
 
     if (!title) {
       ctx.body = {
@@ -38,6 +38,7 @@ class BlogController extends Controller {
       type,
       tags: tags ? tags.join(',') : '',
       content,
+      isShow,
     };
 
     try {
