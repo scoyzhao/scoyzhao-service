@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-14 21:31:37
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-11-05 21:08:49
+ * @Last Modified time: 2020-11-07 14:26:09
  */
 
 'use strict';
@@ -41,6 +41,7 @@ module.exports = appInfo => {
       password: 'Asdf_123147',
       // database
       database: 'react_blog',
+      dateStrings: true,
     },
     // load into app, default is open
     app: true,
