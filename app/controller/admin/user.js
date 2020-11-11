@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-10-14 01:05:26
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-10-19 17:53:59
+ * @Last Modified time: 2020-11-11 16:20:12
  */
 'use strict';
 
@@ -12,8 +12,6 @@ class UserContorller extends Controller {
   async login() {
     const { ctx, app } = this;
     const { userName, password } = ctx.request.body;
-    // const sql = `SELECT count(*) FROM user WHERE user_name = '${userName}' AND password = '${password}'`;
-    // console.log('AdminController -> login -> sql', sql);
 
     try {
       const user = await app.mysql.get('user', {
