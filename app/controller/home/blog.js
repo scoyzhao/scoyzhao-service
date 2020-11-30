@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-11-07 11:32:56
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-11-11 16:03:46
+ * @Last Modified time: 2020-11-30 20:48:11
  */
 
 'use strict';
@@ -38,9 +38,9 @@ class BlogController extends Controller {
 
   async getBlogList() {
     const { ctx } = this;
-    const { type, id } = ctx.request.body;
+    const { type, id, limit } = ctx.request.body;
     try {
-      const blogList = await ctx.service.blog.getBlogList({ type, id });
+      const blogList = await ctx.service.blog.getBlogList({ type, id, limit });
       ctx.body = {
         code: 0,
         data: {
