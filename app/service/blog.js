@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-11-07 11:25:09
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-11-30 20:49:13
+ * @Last Modified time: 2020-12-02 16:30:35
  */
 
 'use strict';
@@ -69,7 +69,7 @@ class BlogService extends Service {
     }
 
     if (limit) {
-      filterBlogList = filterBlogList(0, limit);
+      filterBlogList = filterBlogList.slice(0, limit);
     }
 
     const result = await ctx.service.blog.formatBlogList(filterBlogList);
