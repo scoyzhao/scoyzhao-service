@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-11-07 11:32:56
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-11-30 20:48:11
+ * @Last Modified time: 2020-12-07 17:37:32
  */
 
 'use strict';
@@ -45,6 +45,27 @@ class BlogController extends Controller {
         code: 0,
         data: {
           blogList,
+        },
+        msg: '获取数据成功',
+      };
+    } catch (error) {
+      ctx.body = {
+        code: 1,
+        data: error,
+        msg: 'server error',
+      };
+    }
+  }
+
+  async getBlogDetailById() {
+    const { ctx } = this;
+    const { id } = ctx.request.body;
+    try {
+      const blog = await ctx.service.blog.getBlogDetailById({ id });
+      ctx.body = {
+        code: 0,
+        data: {
+          blog,
         },
         msg: '获取数据成功',
       };

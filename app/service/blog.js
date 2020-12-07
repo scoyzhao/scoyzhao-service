@@ -2,7 +2,7 @@
  * @Author: scoyzhao
  * @Date: 2020-11-07 11:25:09
  * @Last Modified by: scoyzhao
- * @Last Modified time: 2020-12-02 16:30:35
+ * @Last Modified time: 2020-12-07 17:45:21
  */
 
 'use strict';
@@ -75,6 +75,17 @@ class BlogService extends Service {
     const result = await ctx.service.blog.formatBlogList(filterBlogList);
 
     return result;
+  }
+
+  async getBlogDetailById({ id }) {
+    const { app, ctx } = this;
+
+    const aBlog = await app.mysql.select('blog', {
+      where: { id },
+    });
+
+    const aResult = await ctx.service.blog.formatBlogList(aBlog);
+    return aResult[0];
   }
 
   async formatBlogList(blogList) {
